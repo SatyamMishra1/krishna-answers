@@ -142,7 +142,7 @@ const KrishnaPage = () => {
                 </div>
             )}
             <footer className="absolute bottom-5 text-[11px] text-gray-500 text-center w-full">
-                Created by Satyam Mishra
+            © 2025 • Created by Satyam Mishra
             </footer>
         </main>
     );
