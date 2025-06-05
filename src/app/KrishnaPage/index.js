@@ -8,14 +8,6 @@ const KrishnaPage = () => {
     const [sanskritAnswer, setSanskritAnswer] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const shloks = [
-        "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। — भगवद्गीता 2.47",
-        "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनंजय। — भगवद्गीता 2.48",
-        "न जायते म्रियते वा कदाचि- न्नायं भूत्वा भविता वा न भूयः। — भगवद्गीता 2.20",
-        "उद्धरेदात्मनाऽत्मानं नात्मानमवसादयेत्। — भगवद्गीता 6.5",
-        "श्रेयान्स्वधर्मो विगुण: परधर्मात्स्वनुष्ठितात्। — भगवद्गीता 3.35"
-    ];
-
     const fetchRandomShlok = async () => {
         const chapter = Math.floor(Math.random() * 18) + 1; // 1 to 18
         const verse = Math.floor(Math.random() * 15) + 1; // Safe default max
@@ -27,10 +19,9 @@ const KrishnaPage = () => {
             setAnswer("पुन: प्रयास करें...")
             return;
         }
-        console.log(data, 'data')
         return {
             shlok: data?.slok,
-            meaning: data?.chinmay?.hc || data?.tej?.ht || '',
+            meaning: (data?.chinmay?.hc?.includes("No") || !data?.chinmay?.hc) ? data?.tej?.ht : data?.chinmay?.hc || '',
             chapter,
             verse,
         };
@@ -46,9 +37,7 @@ const KrishnaPage = () => {
         }
         setAnswer(selected?.meaning);
         setSanskritAnswer(selected?.shlok)
-        setTimeout(() => {
-            speakText(selected?.meaning);
-        }, 1000);
+        speakText(selected?.meaning);
     };
 
     const handleVoiceInput = () => {
